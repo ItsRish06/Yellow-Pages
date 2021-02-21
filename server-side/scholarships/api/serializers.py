@@ -17,4 +17,4 @@ class ScholarshipListSerializer(serializers.ModelSerializer):
   
     class Meta:
         model = Scholarship
-        fields = ['title','image','slug','deadline','eligibility','award']
+        fields = ['title','image','slug','deadline','eligibility','award','updated_on']
