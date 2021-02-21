@@ -12,10 +12,9 @@ from django.core.paginator import Paginator
 
 PAGE_SIZE = 18
 
-
 class api_filter_scholarship(generics.ListAPIView):
     queryset = Scholarship.objects.all().filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
-    serializer_class = ScholarshipSerializer
+    serializer_class = ScholarshipListSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ScholarshipFilter 
     pagination_class = PageNumberPagination
@@ -136,7 +135,7 @@ def api_list_inactive_scholarship(request):
     try:
         sort = request.GET.get('sort')
         if sort:
-            qs = Scholarship.objects.all().exclude(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
+            qs = Scholarship.objects.all().exclude(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('updated_on')
         else:
             qs = Scholarship.objects.all().exclude(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('-deadline')
         paginator = Paginator(qs, PAGE_SIZE)
@@ -164,6 +163,31 @@ def api_category_list_scholarship(request,category):
             qs = sch.filter(category__icontains=category).filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('-updated_on')
         else:
             qs = sch.filter(category__icontains=category).filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
+        paginator = Paginator(qs, PAGE_SIZE)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+    except Scholarship.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+
+    serializer = ScholarshipListSerializer(page_obj,many = True)
+    context = {
+        "count" : qs.count(),
+        "results" : serializer.data
+    }
+    return Response(context)
+
+
+@api_view(['GET',])
+def api_search_scholarship(request):
+    try:
+        sort = request.GET.get('sort')
+        q = request.GET.get('q')
+        sch = Scholarship.objects.all()
+        if sort:
+            qs = sch.filter(title__icontains=q).filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('-updated_on')
+        else:
+            qs = sch.filter(title__icontains=q).filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
         paginator = Paginator(qs, PAGE_SIZE)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)

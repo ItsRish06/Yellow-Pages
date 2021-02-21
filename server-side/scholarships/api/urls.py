@@ -7,11 +7,13 @@ from .views import (
     api_class_list_scholarship,
     api_type_list_scholarship,
     api_category_list_scholarship,
-    api_filter_scholarship)
+    api_filter_scholarship,
+    api_search_scholarship)
 
 app_name = 'scholarships'
 
 urlpatterns = [
+    path('search/',api_search_scholarship),
     path('filter/',api_filter_scholarship.as_view()),   
     path('category/<str:category>/',api_category_list_scholarship),  
     path('type/<str:stype>/',api_type_list_scholarship),    
