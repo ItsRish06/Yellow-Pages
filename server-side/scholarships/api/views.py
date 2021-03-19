@@ -10,7 +10,9 @@ from ..forms import ScholarshipFilter
 from django_filters import rest_framework as filters
 from django.core.paginator import Paginator
 
+#Pagination Setting
 PAGE_SIZE = 18
+
 
 class api_filter_scholarship(generics.ListAPIView):
     queryset = Scholarship.objects.all().filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
@@ -29,7 +31,7 @@ def api_detail_scholarship(request,slug):
 
     serializer = ScholarshipSerializer(sch)
     context = {
-        "count" : qs.count(),
+        
         "results" : serializer.data
     }
     return Response(context)

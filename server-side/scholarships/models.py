@@ -39,8 +39,20 @@ class Gender(models.Model):
     def __str__(self):
         return self.name
 
+class Type(models.Model):
+    name = models.CharField(max_length=150,unique=True)
 
-TYPE = (
+    def __str__(self):
+        return self.name
+
+class Category(models.Model):
+    name = models.CharField(max_length=150,unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+""" TYPE = (
     ('Government','Government'),
     ('Private','Private'),
     ('International','International')
@@ -64,7 +76,7 @@ CATEGORY_CHOICES = (
     ('Minority','Minority'),
     ('Physically Disabled','Physically Disabled'),
     ('Others' , 'Others')
-)
+) """
 
 def upload_location(instance,filename):
     file_path = 'scholarships/logo/{title}_{filename}'.format(
@@ -72,21 +84,24 @@ def upload_location(instance,filename):
     )
     return file_path
 
+
+#Scholarship Model
+
 class Scholarship(models.Model):
     title = models.CharField(max_length=150 , unique = True)
     about = models.TextField(max_length = 5000 , blank=True,null=True )
     image = models.ImageField(upload_to=upload_location,null=True,blank=True)
-    state = models.ForeignKey(State,on_delete=models.DO_NOTHING)
-    course = models.ForeignKey(Course,on_delete=models.DO_NOTHING)
-    category = models.CharField(max_length=50,null=True,blank=True,choices=CATEGORY_CHOICES)
-    religion = models.ForeignKey(Religion,on_delete=models.DO_NOTHING)
+    state = models.ForeignKey(State,on_delete=models.DO_NOTHING,blank=True,null=True)
+    course = models.ForeignKey(Course,on_delete=models.DO_NOTHING,blank=True,null=True)
+    category = models.ForeignKey(Category,on_delete=models.DO_NOTHING,blank=True,null=True)
+    religion = models.ForeignKey(Religion,on_delete=models.DO_NOTHING,blank=True,null=True)
     sclass = models.ManyToManyField(Class)
     gender = models.ManyToManyField(Gender)
-    stype = models.CharField(max_length=20, choices = TYPE)
-    eligibility = models.CharField(max_length=200)
-    country = models.ForeignKey(Country,on_delete=models.DO_NOTHING)
-    content = models.TextField(max_length = 50000)
-    award = models.CharField(max_length=150)
+    stype = models.ForeignKey(Type,on_delete=models.DO_NOTHING,blank=True,null=True)
+    eligibility = models.TextField(max_length=50000,blank=True,null=True)
+    country = models.ForeignKey(Country,on_delete=models.DO_NOTHING,blank=True,null=True)
+    content = models.TextField(max_length = 50000,blank=True,null=True)
+    award = models.CharField(max_length=150,blank=True,null=True)
     updated_on = models.DateField(auto_now=True)
     slug = models.SlugField(max_length=150,blank=True)
     site_url = models.CharField(max_length=300,null=True,blank=True)
@@ -99,6 +114,7 @@ class Scholarship(models.Model):
 def submission_delete(sender,instance,*args,**kwargs):
     instance.image.delete(False)
 
+#creates slug from title before saving the object
 def pre_save_scholarship_receiver(sender,instance,*args,**kwargs):
     if not instance.slug:
         instance.slug = slugify(instance.title)

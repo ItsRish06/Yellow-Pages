@@ -26,13 +26,16 @@ schema_view = get_schema_view(title=API_TITLE)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    #Django-Summernote
     path('summernote/',include('django_summernote.urls')),
     
 
     #REST FRAMEWORK URLS
     path('api/scholarship/',include('scholarships.api.urls')),
 
-    path('docs/', include_docs_urls(title=API_TITLE,description=API_DESCRIPTION)), 
+    #API Docs
+    path('', include_docs_urls(title=API_TITLE,description=API_DESCRIPTION)), 
     path('schema/', schema_view),
 ]
 
