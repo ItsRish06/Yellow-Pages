@@ -21,5 +21,5 @@ urlpatterns = [
     path('state/<str:state>/',api_state_list_scholarship),
     path('inactive/',api_list_inactive_scholarship),
     path('active/',api_list_active_scholarship),
-    path('<slug>/',api_detail_scholarship),
+    path('active/<slug>/',api_detail_scholarship),
 ]

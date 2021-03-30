@@ -101,11 +101,12 @@ class Scholarship(models.Model):
     eligibility = models.TextField(max_length=50000,blank=True,null=True)
     country = models.ForeignKey(Country,on_delete=models.DO_NOTHING,blank=True,null=True)
     content = models.TextField(max_length = 50000,blank=True,null=True)
-    award = models.CharField(max_length=150,blank=True,null=True)
+    award = models.CharField(max_length=150)
     updated_on = models.DateField(auto_now=True)
     slug = models.SlugField(max_length=150,blank=True)
     site_url = models.CharField(max_length=300,null=True,blank=True)
-    deadline = models.DateField(null=True,blank=True,auto_now_add=False,auto_now=False)
+    deadline = models.DateField(auto_now_add=False,auto_now=False)
+    contact = models.CharField(max_length=150,null=True,blank=True)
 
     def __str__(self):
         return self.title
