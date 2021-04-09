@@ -8,7 +8,8 @@ from .views import (
     api_type_list_scholarship,
     api_category_list_scholarship,
     api_filter_scholarship,
-    api_search_scholarship)
+    api_search_scholarship,
+    form_fields)
 
 app_name = 'scholarships'
 
@@ -22,4 +23,5 @@ urlpatterns = [
     path('inactive/',api_list_inactive_scholarship),
     path('active/',api_list_active_scholarship),
     path('active/<slug>/',api_detail_scholarship),
+    path('filterFields/',form_fields)
 ]

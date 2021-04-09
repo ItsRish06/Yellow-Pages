@@ -1,5 +1,5 @@
 from .serializers import ScholarshipSerializer,ScholarshipListSerializer
-from scholarships.models import Scholarship
+from scholarships.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -9,6 +9,7 @@ import datetime
 from ..forms import ScholarshipFilter
 from django_filters import rest_framework as filters
 from django.core.paginator import Paginator
+from .fieldSerializers import *
 
 #Pagination Setting
 PAGE_SIZE = 18
@@ -203,3 +204,31 @@ def api_search_scholarship(request):
         "results" : serializer.data
     }
     return Response(context) 
+
+@api_view(['GET'])
+def form_fields(request):
+    state = StateSerializer(State.objects.all(),many = True)
+    course = CourseSerializer(Course.objects.all(),many = True)
+    religion = ReligionSerializer(Religion.objects.all(),many = True)
+    sclass = ClassSerializer(Class.objects.all(),many=True)
+    country = CountrySerializer(Country.objects.all(),many = True)
+    gender = GenderSerializer(Gender.objects.all(),many = True )
+    stype = TypeSerializer(Type.objects.all(),many = True)
+    category = CategorySerializer(Category.objects.all(),many = True)
+
+    data = {
+        'state':state.data,
+        'course':course.data,
+        'religion':religion.data,
+        'class':sclass.data,
+        'country':country.data,
+        'gender':gender.data,
+        'type':stype.data,
+        'category':category.data
+    }
+
+    return Response(data)
+
+    
+
+

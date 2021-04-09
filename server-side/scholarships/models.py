@@ -4,49 +4,49 @@ from django.db.models.signals import post_delete,pre_save
 from django.utils.text import slugify
 
 class State(models.Model):
-    name = models.CharField(max_length=50,unique=True)
+    name = models.CharField(max_length=50,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
 
 class Course(models.Model):
-    name = models.CharField(max_length=50,unique=True)
+    name = models.CharField(max_length=50,unique=True,primary_key=True)
     
     def __str__(self):
         return self.name
 
 class Religion(models.Model):
-    name = models.CharField(max_length=50,unique=True)
+    name = models.CharField(max_length=50,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
 
 class Class(models.Model):
-    name = models.CharField(max_length=50,unique=True)
+    name = models.CharField(max_length=50,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
 
 class Country(models.Model):
-    name = models.CharField(max_length=150,unique=True)
+    name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
 
 class Gender(models.Model):
-    name = models.CharField(max_length=150,unique=True)
+    name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
 
 class Type(models.Model):
-    name = models.CharField(max_length=150,unique=True)
+    name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
 
 class Category(models.Model):
-    name = models.CharField(max_length=150,unique=True)
+    name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name

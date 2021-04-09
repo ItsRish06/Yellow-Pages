@@ -10,7 +10,7 @@ class ScholarshipAdmin(SummernoteModelAdmin,):
     summernote_fields = '__all__' 
  
 class GenAdmin(SummernoteModelAdmin) :
-    list_display = ('id','name')
+    list_display = ('name',)
 
 admin.site.register(State,GenAdmin)
 admin.site.register(Country,GenAdmin)
