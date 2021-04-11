@@ -1,4 +1,4 @@
-from .serializers import ScholarshipSerializer,ScholarshipListSerializer
+from .serializers import ScholarshipSerializer
 from scholarships.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -17,7 +17,7 @@ PAGE_SIZE = 18
 
 class api_filter_scholarship(generics.ListAPIView):
     queryset = Scholarship.objects.all().filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
-    serializer_class = ScholarshipListSerializer
+    serializer_class = ScholarshipSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ScholarshipFilter 
     pagination_class = PageNumberPagination
@@ -54,7 +54,7 @@ def api_state_list_scholarship(request,state):
     except Scholarship.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = ScholarshipListSerializer(page_obj,many = True)
+    serializer = ScholarshipSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data
@@ -78,7 +78,7 @@ def api_class_list_scholarship(request,sclass):
     except Scholarship.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = ScholarshipListSerializer(page_obj,many = True)
+    serializer = ScholarshipSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data
@@ -102,7 +102,7 @@ def api_type_list_scholarship(request,stype):
     except Scholarship.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = ScholarshipListSerializer(page_obj,many = True)
+    serializer = ScholarshipSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data
@@ -125,7 +125,7 @@ def api_list_active_scholarship(request):
     except Scholarship.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = ScholarshipListSerializer(page_obj,many = True)
+    serializer = ScholarshipSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data
@@ -149,7 +149,7 @@ def api_list_inactive_scholarship(request):
     except Scholarship.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = ScholarshipListSerializer(page_obj,many = True)
+    serializer = ScholarshipSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data
@@ -173,7 +173,7 @@ def api_category_list_scholarship(request,category):
     except Scholarship.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = ScholarshipListSerializer(page_obj,many = True)
+    serializer = ScholarshipSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data
@@ -198,7 +198,7 @@ def api_search_scholarship(request):
     except Scholarship.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = ScholarshipListSerializer(page_obj,many = True)
+    serializer = ScholarshipSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data

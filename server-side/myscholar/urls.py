@@ -33,6 +33,9 @@ urlpatterns = [
 
     #REST FRAMEWORK URLS
     path('api/scholarship/',include('scholarships.api.urls')),
+    path('api/ngo/',include('ngo.api.urls')),
+    path('api/loans/',include('loans.api.urls')),
+    path('api/bookbanks/',include('bookbanks.api.urls')),
 
     #API Docs
     path('', include_docs_urls(title=API_TITLE,description=API_DESCRIPTION)), 
