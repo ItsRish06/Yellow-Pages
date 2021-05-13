@@ -12,8 +12,14 @@ class BookbankAdmin(SummernoteModelAdmin,):
 class GenAdmin(SummernoteModelAdmin) :
     list_display = ('name',)
 
+class CsAdmin(SummernoteModelAdmin):
+    list_filter = ('reviewed',)
+    search_fields=('title',)
+    list_display = ('title','sub_date',)
+
 admin.site.register(State,GenAdmin)
 admin.site.register(District,GenAdmin)
 admin.site.register(Books,GenAdmin)
 
 admin.site.register(Bookbank,BookbankAdmin)
+admin.site.register(CrowdSource,CsAdmin)

@@ -9,6 +9,9 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "State"
+
 
 
 class Religion(models.Model):
@@ -17,6 +20,9 @@ class Religion(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Religion"
+
 
 class Country(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
@@ -24,11 +30,17 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Country"
+
 class District(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "District"
 
 class LoanAmt(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
@@ -36,11 +48,17 @@ class LoanAmt(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "LoanAmt"
+
 class Category(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Category"
 
 
 
@@ -66,6 +84,9 @@ class Loan(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = "Loan"
+
 
 #creates slug from title before saving the object
 def pre_save_loan_receiver(sender,instance,*args,**kwargs):
@@ -74,3 +95,23 @@ def pre_save_loan_receiver(sender,instance,*args,**kwargs):
 
 pre_save.connect(pre_save_loan_receiver,sender=Loan)
 
+
+class CrowdSource(models.Model):
+    title = models.CharField(max_length=300,null=True,blank=True)
+    interest = models.CharField(max_length=500,null=True,blank=True)
+    eligibility = models.TextField(max_length=500,null=True,blank=True)
+    contact = models.CharField(max_length=300,null=True,blank=True)
+    desc = models.TextField(max_length=3000,null=True,blank=True)
+    person_name = models.CharField(max_length=300,null=True,blank=True)
+    person_email = models.CharField(max_length=300,null=True,blank=True)
+    person_contact = models.CharField(max_length=10,null=True,blank=True)
+    reviewed = models.BooleanField(null=True,blank=True,default=False)
+    sub_date = models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "CrowdSource"
+
+    

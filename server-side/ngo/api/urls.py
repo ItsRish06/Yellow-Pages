@@ -4,7 +4,8 @@ from .views import (
     api_list_active_ngo,
     api_filter_ngo,
     api_search_ngo,
-    form_fields)
+    form_fields,
+    crowdSourceView)
 
 app_name = 'Bookbank'
 
@@ -13,5 +14,6 @@ urlpatterns = [
     path('filter/',api_filter_ngo.as_view()),   
     path('active/',api_list_active_ngo),
     path('active/<slug>/',api_detail_ngo),
-    path('filterFields/',form_fields)
+    path('filterFields/',form_fields),
+    path('crowdSource/',crowdSourceView),
 ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from bookbanks.models import Bookbank
+from bookbanks.models import Bookbank,CrowdSource
 
 #Serializer for bookbank detail
 class BookbankSerializer(serializers.ModelSerializer):
@@ -18,3 +18,9 @@ class BookbankListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookbank
         fields = ['title','slug','updated_on']
+
+class CrowdSourceSerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        model = CrowdSource
+        fields = '__all__'

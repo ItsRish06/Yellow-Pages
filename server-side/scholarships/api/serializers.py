@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from scholarships.models import Scholarship
+from scholarships.models import Scholarship,CrowdSource
 
 #Serializer for scholarship detail
 class ScholarshipSerializer(serializers.ModelSerializer):
@@ -22,3 +22,9 @@ class ScholarshipListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scholarship
         fields = ['title','image','slug','deadline','eligibility','award','updated_on']
+
+class CrowdSourceSerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        model = CrowdSource
+        fields = '__all__'

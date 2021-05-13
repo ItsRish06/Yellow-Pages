@@ -9,11 +9,17 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "State"
+
 class District(models.Model):
     name = models.CharField(max_length=50,unique=True,primary_key=True)
     
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "District"
 
 
 class Books(models.Model):
@@ -21,6 +27,9 @@ class Books(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Books"
 
 
 
@@ -43,6 +52,9 @@ class Bookbank(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = "Bookbank"
+
 
 #creates slug from title before saving the object
 def pre_save_bookbank_receiver(sender,instance,*args,**kwargs):
@@ -51,3 +63,19 @@ def pre_save_bookbank_receiver(sender,instance,*args,**kwargs):
 
 pre_save.connect(pre_save_bookbank_receiver,sender=Bookbank)
 
+class CrowdSource(models.Model):
+    title = models.CharField(max_length=300,null=True,blank=True)
+    location = models.TextField(max_length=1000,null=True,blank=True)
+    contact = models.CharField(max_length=300,null=True,blank=True)
+    desc = models.TextField(max_length=3000,null=True,blank=True)
+    person_name = models.CharField(max_length=300,null=True,blank=True)
+    person_email = models.CharField(max_length=300,null=True,blank=True)
+    person_contact = models.CharField(max_length=10,null=True,blank=True)
+    reviewed = models.BooleanField(null=True,blank=True,default=False)
+    sub_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "CrowdSource"

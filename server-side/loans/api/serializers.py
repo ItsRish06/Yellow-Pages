@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from loans.models import Loan
+from loans.models import Loan,CrowdSource
 
 #Serializer for loan detail
 class LoanSerializer(serializers.ModelSerializer): 
     state = serializers.StringRelatedField()            # many=True indicates many to many relation.
-    District = serializers.StringRelatedField()
+    district = serializers.StringRelatedField()
     religion = serializers.StringRelatedField()
     country = serializers.StringRelatedField()
     category = serializers.StringRelatedField()
@@ -19,4 +19,10 @@ class LoanListSerializer(serializers.ModelSerializer):
   
     class Meta:
         model = Loan
-        fields = ['title','image','slug','deadline','eligibility','award','updated_on']
+        fields = ['title','slug','eligibility','award','updated_on']
+
+class CrowdSourceSerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        model = CrowdSource
+        fields = '__all__'

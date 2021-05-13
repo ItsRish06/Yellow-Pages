@@ -1,4 +1,4 @@
-from .serializers import NGOSerializer,NGOListSerializer
+from .serializers import NGOSerializer,NGOListSerializer,CrowdSourceSerializer
 from ngo.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -99,6 +99,25 @@ def form_fields(request):
     }
 
     return Response(data)
+
+@api_view(['POST','GET'])
+def crowdSourceView(request):
+    ''' api for crowd source '''
+
+    if request.method == 'GET':
+        try:
+            scholarship = CrowdSource.objects.all()
+            serializer = CrowdSourceSerializer(scholarship,many=True)
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+    elif request.method=='POST':
+        serializer = CrowdSourceSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     
 

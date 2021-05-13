@@ -12,6 +12,11 @@ class ScholarshipAdmin(SummernoteModelAdmin,):
 class GenAdmin(SummernoteModelAdmin) :
     list_display = ('name',)
 
+class CsAdmin(SummernoteModelAdmin):
+    list_filter = ('reviewed',)
+    search_fields=('title',)
+    list_display = ('title','sub_date',)
+
 admin.site.register(State,GenAdmin)
 admin.site.register(Country,GenAdmin)
 admin.site.register(Course,GenAdmin)
@@ -21,3 +26,4 @@ admin.site.register(Class,GenAdmin)
 admin.site.register(Category,GenAdmin)
 admin.site.register(Type,GenAdmin)
 admin.site.register(Scholarship,ScholarshipAdmin)
+admin.site.register(CrowdSource,CsAdmin)

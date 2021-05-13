@@ -1,4 +1,4 @@
-from .serializers import ScholarshipSerializer
+from .serializers import ScholarshipSerializer,CrowdSourceSerializer
 from scholarships.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -38,7 +38,7 @@ def api_detail_scholarship(request,slug):
     return Response(context)
 
 
-@api_view(['GET',])
+""" @api_view(['GET',])
 def api_state_list_scholarship(request,state):
     try:
         sort = request.GET.get('sort')
@@ -59,10 +59,10 @@ def api_state_list_scholarship(request,state):
         "count" : qs.count(),
         "results" : serializer.data
     }
-    return Response(context)
+    return Response(context) """
  
 
-@api_view(['GET',])
+""" @api_view(['GET',])
 def api_class_list_scholarship(request,sclass):
     try:
         sort = request.GET.get('sort')
@@ -83,10 +83,10 @@ def api_class_list_scholarship(request,sclass):
         "count" : qs.count(),
         "results" : serializer.data
     }
-    return Response(context) 
+    return Response(context)  """
  
 
-@api_view(['GET',])
+""" @api_view(['GET',])
 def api_type_list_scholarship(request,stype):
     try:
         sort = request.GET.get('sort')
@@ -107,7 +107,7 @@ def api_type_list_scholarship(request,stype):
         "count" : qs.count(),
         "results" : serializer.data
     }
-    return Response(context)
+    return Response(context) """
 
 
 @api_view(['GET',])
@@ -157,7 +157,7 @@ def api_list_inactive_scholarship(request):
     return Response(context) 
 
 
-@api_view(['GET',])
+""" @api_view(['GET',])
 def api_category_list_scholarship(request,category):
     try:
         sort = request.GET.get('sort')
@@ -178,7 +178,7 @@ def api_category_list_scholarship(request,category):
         "count" : qs.count(),
         "results" : serializer.data
     }
-    return Response(context)
+    return Response(context) """
 
 
 @api_view(['GET',])
@@ -228,6 +228,26 @@ def form_fields(request):
     }
 
     return Response(data)
+
+
+@api_view(['POST','GET'])
+def crowdSourceView(request):
+    ''' api for crowd source '''
+
+    if request.method == 'GET':
+        try:
+            scholarship = CrowdSource.objects.all()
+            serializer = CrowdSourceSerializer(scholarship,many=True)
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+    elif request.method=='POST':
+        serializer = CrowdSourceSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     
 

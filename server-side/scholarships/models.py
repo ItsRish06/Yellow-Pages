@@ -9,11 +9,17 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "State"
+
 class Course(models.Model):
     name = models.CharField(max_length=50,unique=True,primary_key=True)
     
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Course"
 
 class Religion(models.Model):
     name = models.CharField(max_length=50,unique=True,primary_key=True)
@@ -21,11 +27,17 @@ class Religion(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Religion"
+
 class Class(models.Model):
     name = models.CharField(max_length=50,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Class"
 
 class Country(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
@@ -33,11 +45,17 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Country"
+
 class Gender(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Gender"
 
 class Type(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
@@ -45,11 +63,17 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Type"
+
 class Category(models.Model):
     name = models.CharField(max_length=150,unique=True,primary_key=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Category"
 
 
 """ TYPE = (
@@ -107,9 +131,13 @@ class Scholarship(models.Model):
     site_url = models.CharField(max_length=300,null=True,blank=True)
     deadline = models.DateField(auto_now_add=False,auto_now=False)
     contact = models.CharField(max_length=150,null=True,blank=True)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = "Scholarship"
 
 @receiver(post_delete,sender=Scholarship)
 def submission_delete(sender,instance,*args,**kwargs):
@@ -122,3 +150,22 @@ def pre_save_scholarship_receiver(sender,instance,*args,**kwargs):
 
 pre_save.connect(pre_save_scholarship_receiver,sender=Scholarship)
 
+
+
+class CrowdSource(models.Model):
+    title = models.CharField(max_length=300,null=True,blank=True)
+    amount = models.CharField(max_length=300,null=True,blank=True)
+    eligibility = models.TextField(max_length=1000,null=True,blank=True)
+    contact = models.CharField(max_length=300,null=True,blank=True)
+    desc = models.TextField(max_length=3000,null=True,blank=True)
+    person_name = models.CharField(max_length=300,null=True,blank=True)
+    person_email = models.CharField(max_length=300,null=True,blank=True)
+    person_contact = models.CharField(max_length=10,null=True,blank=True)
+    reviewed = models.BooleanField(null=True,blank=True,default=False)
+    sub_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "CrowdSource"

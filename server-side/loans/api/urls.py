@@ -3,7 +3,8 @@ from .views import (
     api_list_active_loan,
     api_filter_loan,
     api_search_loan,
-    form_fields)
+    form_fields,
+    crowdSourceView)
 
 app_name = 'loans'
 
@@ -11,5 +12,6 @@ urlpatterns = [
     path('search/',api_search_loan),
     path('filter/',api_filter_loan.as_view()),      
     path('active/',api_list_active_loan),
-    path('filterFields/',form_fields)
+    path('filterFields/',form_fields),
+    path('crowdSource/',crowdSourceView),
 ]

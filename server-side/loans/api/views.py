@@ -1,4 +1,4 @@
-from .serializers import LoanSerializer,LoanListSerializer
+from .serializers import LoanSerializer,LoanListSerializer,CrowdSourceSerializer
 from loans.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -64,10 +64,7 @@ def api_search_loan(request):
     try:
         q = request.GET.get('q')
         sch = Loan.objects.all()
-        if sort:
-            qs = sch.filter(title__icontains=q).filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('-updated_on')
-        else:
-            qs = sch.filter(title__icontains=q).filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
+        qs = sch.filter(title__icontains=q).order_by('-updated_on')
         paginator = Paginator(qs, PAGE_SIZE)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -75,7 +72,7 @@ def api_search_loan(request):
     except Loan.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)
 
-    serializer = LoanListSerializer(page_obj,many = True)
+    serializer = LoanSerializer(page_obj,many = True)
     context = {
         "count" : qs.count(),
         "results" : serializer.data
@@ -85,9 +82,9 @@ def api_search_loan(request):
 @api_view(['GET'])
 def form_fields(request):
     state = StateSerializer(State.objects.all(),many = True)
-    district = DistrictSerializer(district.objects.all(),many = True)
+    district = DistrictSerializer(District.objects.all(),many = True)
     religion = ReligionSerializer(Religion.objects.all(),many = True)
-    LoanAmt = LoanAmtSerializer(LoanAmt.objects.all(),many=True)
+    loan_amount = LoanAmtSerializer(LoanAmt.objects.all(),many=True)
     country = CountrySerializer(Country.objects.all(),many = True)
     category = CategorySerializer(Category.objects.all(),many = True)
 
@@ -95,12 +92,32 @@ def form_fields(request):
         'state':state.data,
         'district':district.data,
         'religion':religion.data,
-        'LoanAmt':LoanAmt.data,
+        'loan_amount':loan_amount.data,
         'country':country.data,
         'category':category.data
     }
 
     return Response(data)
+
+@api_view(['POST','GET'])
+def crowdSourceView(request):
+    ''' api for crowd source '''
+
+    if request.method == 'GET':
+        try:
+            scholarship = CrowdSource.objects.all()
+            serializer = CrowdSourceSerializer(scholarship,many=True)
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+    elif request.method=='POST':
+        serializer = CrowdSourceSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 
     
 

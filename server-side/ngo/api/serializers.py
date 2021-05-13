@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ngo.models import NGO
+from ngo.models import NGO,CrowdSource
 
 #Serializer for scholarship detail
 class NGOSerializer(serializers.ModelSerializer):  
@@ -20,3 +20,9 @@ class NGOListSerializer(serializers.ModelSerializer):
     class Meta:
         model = NGO
         fields = ['title','slug','eligibility','updated_on']
+
+class CrowdSourceSerializer(serializers.ModelSerializer):
+  
+    class Meta:
+        model = CrowdSource
+        fields = '__all__'
