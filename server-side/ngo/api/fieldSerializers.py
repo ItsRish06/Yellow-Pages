@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from ngo.models import *
 
+
+#Serializers for form fields
+
 class StateSerializer(serializers.ModelSerializer):
   
     class Meta:

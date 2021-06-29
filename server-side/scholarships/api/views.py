@@ -16,6 +16,7 @@ PAGE_SIZE = 18
 
 
 class api_filter_scholarship(generics.ListAPIView):
+    '''filter.Get scholarships whose deadline has not yet passed.'''
     queryset = Scholarship.objects.all().filter(deadline__gte = datetime.datetime.now().strftime("%Y-%m-%d") ).order_by('deadline')
     serializer_class = ScholarshipSerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -25,6 +26,7 @@ class api_filter_scholarship(generics.ListAPIView):
 
 @api_view(['GET',])
 def api_detail_scholarship(request,slug):
+    '''get scholarship detail using slug'''
     try:
         sch = Scholarship.objects.get(slug=slug)
     except Scholarship.DoesNotExist :
@@ -112,6 +114,7 @@ def api_type_list_scholarship(request,stype):
 
 @api_view(['GET',])
 def api_list_active_scholarship(request):
+    '''list of active scholarship whose deadline has not yet passed'''
     try:
         sort = request.GET.get('sort')
         if sort:
@@ -135,6 +138,7 @@ def api_list_active_scholarship(request):
 
 @api_view(['GET',])
 def api_list_inactive_scholarship(request):
+    '''list of inactive scholarship'''
     try:
         sort = request.GET.get('sort')
         if sort:
@@ -183,6 +187,7 @@ def api_category_list_scholarship(request,category):
 
 @api_view(['GET',])
 def api_search_scholarship(request):
+    '''search.q=search item , sort=True to sort by updated_on'''
     try:
         sort = request.GET.get('sort')
         q = request.GET.get('q')

@@ -19,6 +19,7 @@ class BookbankListSerializer(serializers.ModelSerializer):
         model = Bookbank
         fields = ['title','slug','updated_on']
 
+#Serializer for crowd source 
 class CrowdSourceSerializer(serializers.ModelSerializer):
   
     class Meta:

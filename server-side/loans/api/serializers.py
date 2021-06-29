@@ -3,8 +3,8 @@ from loans.models import Loan,CrowdSource
 
 #Serializer for loan detail
 class LoanSerializer(serializers.ModelSerializer): 
-    state = serializers.StringRelatedField()            # many=True indicates many to many relation.
-    district = serializers.StringRelatedField()
+    state = serializers.StringRelatedField()            # Required to serialize foreign key relationships. 
+    district = serializers.StringRelatedField()         # many=True indicates many to many relation.
     religion = serializers.StringRelatedField()
     country = serializers.StringRelatedField()
     category = serializers.StringRelatedField()

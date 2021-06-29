@@ -95,7 +95,7 @@ def pre_save_loan_receiver(sender,instance,*args,**kwargs):
 
 pre_save.connect(pre_save_loan_receiver,sender=Loan)
 
-
+#crowd source model
 class CrowdSource(models.Model):
     title = models.CharField(max_length=300,null=True,blank=True)
     interest = models.CharField(max_length=500,null=True,blank=True)

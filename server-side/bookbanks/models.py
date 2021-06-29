@@ -63,6 +63,7 @@ def pre_save_bookbank_receiver(sender,instance,*args,**kwargs):
 
 pre_save.connect(pre_save_bookbank_receiver,sender=Bookbank)
 
+#crowd source model
 class CrowdSource(models.Model):
     title = models.CharField(max_length=300,null=True,blank=True)
     location = models.TextField(max_length=1000,null=True,blank=True)

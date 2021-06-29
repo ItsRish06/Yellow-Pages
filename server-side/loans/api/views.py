@@ -16,6 +16,7 @@ PAGE_SIZE = 18
 
 
 class api_filter_loan(generics.ListAPIView):
+    '''filter'''
     queryset = Loan.objects.all().order_by('-updated_on')
     serializer_class = LoanSerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -42,6 +43,7 @@ def api_detail_loan(request,slug):
 
 @api_view(['GET',])
 def api_list_active_loan(request):
+    '''api for loan list'''
     try:
         qs = Loan.objects.all().order_by('-updated_on')
         paginator = Paginator(qs, PAGE_SIZE)
@@ -61,6 +63,7 @@ def api_list_active_loan(request):
 
 @api_view(['GET',])
 def api_search_loan(request):
+    '''Search . q = search item'''
     try:
         q = request.GET.get('q')
         sch = Loan.objects.all()
@@ -81,6 +84,7 @@ def api_search_loan(request):
 
 @api_view(['GET'])
 def form_fields(request):
+    '''get form fields'''
     state = StateSerializer(State.objects.all(),many = True)
     district = DistrictSerializer(District.objects.all(),many = True)
     religion = ReligionSerializer(Religion.objects.all(),many = True)

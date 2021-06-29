@@ -3,12 +3,12 @@ from ngo.models import NGO,CrowdSource
 
 #Serializer for scholarship detail
 class NGOSerializer(serializers.ModelSerializer):  
-    state = serializers.StringRelatedField()            
+    state = serializers.StringRelatedField()           # Required to serialize foreign key relationships.  
     religion = serializers.StringRelatedField()
     country = serializers.StringRelatedField()
     category = serializers.StringRelatedField()
     stype = serializers.StringRelatedField()
-    gender = serializers.StringRelatedField(many=True)
+    gender = serializers.StringRelatedField(many=True) # many=True indicates many to many relation.
     class Meta:
         model = NGO
         fields = '__all__'

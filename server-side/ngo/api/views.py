@@ -16,6 +16,7 @@ PAGE_SIZE = 18
 
 
 class api_filter_ngo(generics.ListAPIView):
+    '''filter'''
     queryset = NGO.objects.all().order_by('-updated_on')
     serializer_class = NGOListSerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -25,6 +26,7 @@ class api_filter_ngo(generics.ListAPIView):
 
 @api_view(['GET',])
 def api_detail_ngo(request,slug):
+    '''api for ngo detail'''
     try:
         sch = NGO.objects.get(slug=slug)
     except NGO.DoesNotExist :
@@ -42,6 +44,7 @@ def api_detail_ngo(request,slug):
 
 @api_view(['GET',])
 def api_list_active_ngo(request):
+    '''ngo list'''
     try:
         qs = NGO.objects.all().order_by('-updated_on')
         paginator = Paginator(qs, PAGE_SIZE)
@@ -62,6 +65,7 @@ def api_list_active_ngo(request):
 
 @api_view(['GET',])
 def api_search_ngo(request):
+    '''search. q=search item'''
     try:
         q = request.GET.get('q')
         sch = NGO.objects.all()

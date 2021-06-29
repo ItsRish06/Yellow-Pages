@@ -16,6 +16,7 @@ PAGE_SIZE = 18
 
 
 class api_filter_bookbank(generics.ListAPIView):
+    '''filter for bookbank'''
     queryset = Bookbank.objects.all().order_by('-updated_on')
     serializer_class = BookbankSerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -25,6 +26,7 @@ class api_filter_bookbank(generics.ListAPIView):
 
 @api_view(['GET',])
 def api_detail_bookbank(request,slug):
+    '''get detail of a scholarship using slug'''
     try:
         sch = Bookbank.objects.get(slug=slug)
     except Bookbank.DoesNotExist :
@@ -41,6 +43,7 @@ def api_detail_bookbank(request,slug):
 
 @api_view(['GET',])
 def api_list_active_bookbank(request):
+    '''get list of bookbanks'''
     try:
         qs = Bookbank.objects.all().order_by('-updated_on')
         paginator = Paginator(qs, PAGE_SIZE)
@@ -62,6 +65,7 @@ def api_list_active_bookbank(request):
 
 @api_view(['GET',])
 def api_search_bookbank(request):
+    '''search bookbank'''
     try:
         q = request.GET.get('q')
         sch = Bookbank.objects.all()
@@ -82,6 +86,7 @@ def api_search_bookbank(request):
 
 @api_view(['GET'])
 def form_fields(request):
+    '''form feilds for filter'''
     state = StateSerializer(State.objects.all(),many = True)
     district = DistrictSerializer(District.objects.all(),many = True)
     books = BookSerializer(Books.objects.all(),many = True)
