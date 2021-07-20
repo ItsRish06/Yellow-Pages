@@ -24,6 +24,7 @@ API_TITLE = "Scholarship API"
 API_DESCRIPTION = "APIs for fetching scholarship data."
 schema_view = get_schema_view(title=API_TITLE)
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -40,8 +41,14 @@ urlpatterns = [
     #API Docs
     path('', include_docs_urls(title=API_TITLE,description=API_DESCRIPTION)), 
     path('schema/', schema_view),
+    
 ]
 
 
 urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
+
+
+
