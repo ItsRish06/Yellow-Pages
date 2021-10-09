@@ -5,7 +5,8 @@ from .views import (
     api_filter_bookbank,
     api_search_bookbank,
     form_fields,
-    crowdSourceView)
+    crowdSourceView,
+    getDistrict)
 
 app_name = 'bookbanks'
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path('active/<slug>/',api_detail_bookbank),
     path('filterFields/',form_fields),
     path('crowdSource/',crowdSourceView),
+    path('getDistrict/',getDistrict)
 ]

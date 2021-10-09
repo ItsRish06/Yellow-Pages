@@ -5,7 +5,8 @@ from .views import (
     api_filter_ngo,
     api_search_ngo,
     form_fields,
-    crowdSourceView)
+    crowdSourceView,
+    getState)
 
 app_name = 'Bookbank'
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path('active/<slug>/',api_detail_ngo),
     path('filterFields/',form_fields),
     path('crowdSource/',crowdSourceView),
+    path('getState/',getState),
 ]

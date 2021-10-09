@@ -85,16 +85,14 @@ def api_search_loan(request):
 @api_view(['GET'])
 def form_fields(request):
     '''get form fields'''
-    state = StateSerializer(State.objects.all(),many = True)
-    district = DistrictSerializer(District.objects.all(),many = True)
+    """ state = StateSerializer(State.objects.all(),many = True)
+    district = DistrictSerializer(District.objects.all(),many = True) """
     religion = ReligionSerializer(Religion.objects.all(),many = True)
     loan_amount = LoanAmtSerializer(LoanAmt.objects.all(),many=True)
     country = CountrySerializer(Country.objects.all(),many = True)
     category = CategorySerializer(Category.objects.all(),many = True)
 
     data = {
-        'state':state.data,
-        'district':district.data,
         'religion':religion.data,
         'loan_amount':loan_amount.data,
         'country':country.data,
@@ -122,6 +120,25 @@ def crowdSourceView(request):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def getState(request):
+    try:
+        country = request.GET.get("country")
+        state = State.objects.all().filter(country = country)
+        result = StateSerializer(state, many = True)
+        return Response(result.data)
+    except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def getDistrict(request):
+    try:
+        state = request.GET.get("state")
+        district = District.objects.all().filter(state = state)
+        result = DistrictSerializer(district, many = True)
+        return Response(result.data)
+    except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     
 

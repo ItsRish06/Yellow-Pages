@@ -9,4 +9,4 @@ class NGOForm(ModelForm):
 class NGOFilter(filters.FilterSet):
     class Meta:
         model = NGO
-        fields = ['state','category','stype','religion','gender']
+        fields = ['country','state','category','stype','religion','gender']

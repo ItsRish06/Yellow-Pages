@@ -88,12 +88,11 @@ def api_search_bookbank(request):
 def form_fields(request):
     '''form feilds for filter'''
     state = StateSerializer(State.objects.all(),many = True)
-    district = DistrictSerializer(District.objects.all(),many = True)
+    """ district = DistrictSerializer(District.objects.all(),many = True) """
     books = BookSerializer(Books.objects.all(),many = True)
 
     data = {
         'state':state.data,
-        'district':district.data,
         'books':books.data,
     }
 
@@ -119,5 +118,16 @@ def crowdSourceView(request):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+
+
+@api_view(['GET'])
+def getDistrict(request):
+    try:
+        state = request.GET.get("state")
+        district = District.objects.all().filter(state = state)
+        result = DistrictSerializer(district, many = True)
+        return Response(result.data)
+    except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 

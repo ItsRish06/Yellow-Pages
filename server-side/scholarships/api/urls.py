@@ -10,7 +10,8 @@ from .views import (
     api_filter_scholarship,
     api_search_scholarship,
     form_fields,
-    crowdSourceView)
+    crowdSourceView,
+    getState)
 
 app_name = 'scholarships'
 
@@ -25,5 +26,6 @@ urlpatterns = [
     path('active/',api_list_active_scholarship),
     path('active/<slug>/',api_detail_scholarship),
     path('filterFields/',form_fields),
-    path('crowdSource/',crowdSourceView)
+    path('crowdSource/',crowdSourceView),
+    path('getState/',getState),
 ]
