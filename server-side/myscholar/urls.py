@@ -25,6 +25,8 @@ API_DESCRIPTION = "APIs for fetching scholarship data."
 schema_view = get_schema_view(title=API_TITLE)
 
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 

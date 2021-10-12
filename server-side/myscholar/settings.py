@@ -166,7 +166,7 @@ REST_FRAMEWORK = {
 #sentry settings
 
 sentry_sdk.init(
-    dsn="https://7f8544b6022b4289858c8eefb5594d88@o924719.ingest.sentry.io/5872997",
+    dsn="https://b128e4db094d49e88eab3dd725c6a862@o1034844.ingest.sentry.io/6001483",
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%
